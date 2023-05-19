@@ -1,7 +1,7 @@
 import { IAuth } from "@/interfaces/Auth/IAuth.interface";
 import { AuthService } from "@/services/Auth/Auth.service";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import validator from "validator";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";

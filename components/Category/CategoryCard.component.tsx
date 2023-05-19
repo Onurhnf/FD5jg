@@ -14,7 +14,7 @@ export default function CategoryCard({
   price,
   viewAll = false,
 }: CategoryCardProps) {
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<string>("/logo.svg");
 
   async function productCoverImage(filename: string) {
     try {
@@ -33,7 +33,7 @@ export default function CategoryCard({
     <div
       className={`${
         viewAll ? "w-[300px] h-[433px]" : "w-[320px] h-[200px]"
-      } bg-gray-200 rounded-md px-2 py-3`}
+      } bg-violet-50 rounded-md px-2 py-3`}
     >
       <div className="flex flex-col justify-between h-full">
         {viewAll ? (
@@ -52,18 +52,7 @@ export default function CategoryCard({
             style={{ width: "100%", height: "100%" }}
           >
             <div className="w-2/5" style={{ width: "120px" }}>
-              <Image
-                src={image}
-                width={120}
-                height={180}
-                alt={name}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                  marginTop: "4px",
-                }}
-              />
+              <Image src={image} width={120} height={180} alt={name} />
             </div>
             <div className="w-3/5 px-2 py-4 flex flex-col justify-between">
               <div>

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UserSlice from "./UserSlice";
+import PrevPage from "./PrevPage";
 
 const store = configureStore({
   reducer: {
     user: UserSlice,
+    prevPage: PrevPage,
   },
 });
 

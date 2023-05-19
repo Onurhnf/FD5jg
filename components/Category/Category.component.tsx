@@ -3,14 +3,17 @@ import { ProductService } from "@/services/Product/Product.service";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/interfaces/Product/IProduct.interface";
 import CategoryCard from "./CategoryCard.component";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setPrev } from "@/store/PrevPage";
 
 export default function Category({
   created_at,
   id,
   name,
 }: ICategory.ICategoryDetail) {
-  const [cartDetail, setCartDetail] = useState<ICategory.ICategoryCard>();
   const [product, setProduct] = useState<IProduct.IProductDetail[]>();
+  const dispatch = useDispatch();
 
   async function productDetail(id: string) {
     try {
@@ -30,9 +33,16 @@ export default function Category({
     <section className=" mx-20 py-8">
       <div className="flex flex-row justify-between">
         <h3 className="text-2xl font-bold mb-4">{name}</h3>
-        <button className="text-MainOrange text-2xl font-semibold">
-          View all
-        </button>
+        <Link href={id.toString()}>
+          <button
+            onClick={() => {
+              dispatch(setPrev({ data: name }));
+            }}
+            className="text-MainOrange text-2xl font-semibold"
+          >
+            View all
+          </button>
+        </Link>
       </div>
       <div
         className="flex flex-row overflow-clip gap-4"
