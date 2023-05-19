@@ -5,7 +5,7 @@ import { IProduct } from "@/interfaces/Product/IProduct.interface";
 import CategoryCard from "./CategoryCard.component";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { setPrev } from "@/store/PrevPage";
+import { setPrev } from "@/store/PrevPageSlice";
 
 export default function Category({
   created_at,
