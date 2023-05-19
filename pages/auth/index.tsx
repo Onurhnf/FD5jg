@@ -1,12 +1,11 @@
 import { IAuth } from "@/interfaces/Auth/IAuth.interface";
 import { AuthService } from "@/services/Auth/Auth.service";
-import { Colors } from "@/utility/Colors";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import validator from "validator";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { login } from "@/Store/UserSlice";
+import { login } from "@/store/UserSlice";
 
 export default function AuthPage() {
   const dispatch = useDispatch();
@@ -144,7 +143,7 @@ export default function AuthPage() {
                   className={`bg-gray-100 appearance-none border-2 rounded w-full py-4 px-4 text-20 ${
                     errors.name
                       ? `border-red-500 focus:outline-none focus:bg-white focus:border-red-500`
-                      : `border-gray-200 focus:outline-none focus:bg-white focus:border-[${Colors.MainPurple}]`
+                      : `border-gray-200 focus:outline-none focus:bg-white focus:border-MainPurple`
                   }`}
                   id="name"
                   type="name"
@@ -166,7 +165,7 @@ export default function AuthPage() {
                 className={`bg-gray-100 appearance-none border-2 rounded w-full py-4 px-4 text-20 ${
                   errors.email
                     ? `border-red-500 focus:outline-none focus:bg-white focus:border-red-500`
-                    : `border-gray-200 focus:outline-none focus:bg-white focus:border-[${Colors.MainPurple}]`
+                    : `border-gray-200 focus:outline-none focus:bg-white focus:border-MainPurple`
                 }`}
                 id="email"
                 type="email"
@@ -189,26 +188,30 @@ export default function AuthPage() {
                 className={`bg-gray-100 appearance-none border-2 rounded w-full py-4 px-4 text-20 ${
                   errors.password
                     ? `border-red-500 focus:outline-none focus:bg-white focus:border-red-500`
-                    : `border-gray-200 focus:outline-none focus:bg-white focus:border-[${Colors.MainPurple}]`
+                    : `border-gray-200 focus:outline-none focus:bg-white focus:border-MainPurple`
                 }`}
                 placeholder="* * * * * *"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
               />
+            </div>
+            <div>
               {errors.password && (
                 <p className="text-red-500">{errors.password}</p>
               )}
             </div>
             {isLogin && (
-              <label className={`text-[${Colors.MainPurple}] font-bold`}>
-                <input
-                  onChange={() => setRemember(!remember)}
-                  className={`mr-2 accent-[${Colors.MainPurple}]`}
-                  type="checkbox"
-                />
-                <span className="text-sm">Remember me</span>
-              </label>
+              <div>
+                <label className={`text-MainPurple font-bold`}>
+                  <input
+                    onChange={() => setRemember(!remember)}
+                    className={`mr-2 accent-MainPurple`}
+                    type="checkbox"
+                  />
+                  <span className="text-sm">Remember me</span>
+                </label>
+              </div>
             )}
           </div>
 
@@ -216,7 +219,7 @@ export default function AuthPage() {
             <div className="mt-4">
               <button
                 onClick={handleSubmit}
-                className={`bg-[${Colors.MainOrange}]  hover:bg-opacity-90 text-white text-[24px] font-semibold  w-[300px] md:w-[400px] h-[60px] rounded-md`}
+                className={`bg-MainOrange  hover:bg-opacity-90 text-white text-[24px] font-semibold  w-[300px] md:w-[400px] h-[60px] rounded-md`}
               >
                 {isLogin ? "Login" : "Register"}
               </button>
@@ -233,7 +236,7 @@ export default function AuthPage() {
                     });
                   setErrors({});
                 }}
-                className={`bg-transparent hover:bg-[${Colors.MainPurple}] text-[${Colors.MainPurple}] text-[24px] font-semibold hover:text-white w-[300px] md:w-[400px] h-[60px] border border-[${Colors.MainPurple}] hover:border-transparent rounded-md`}
+                className={`bg-transparent hover:bg-MainPurple text-MainPurple text-[24px] font-semibold hover:text-white w-[300px] md:w-[400px] h-[60px] border border-MainPurple hover:border-transparent rounded-md`}
               >
                 {!isLogin ? "Login" : "Register"}
               </button>

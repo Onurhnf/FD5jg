@@ -11,6 +11,10 @@ export const theme = {
       "gradient-conic":
         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
     },
+    colors: {
+      MainPurple: "#6251DD",
+      MainOrange: "#EF6B4A",
+    },
   },
 };
 export const plugins = [];

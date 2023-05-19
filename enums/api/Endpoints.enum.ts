@@ -9,5 +9,10 @@ export enum Endpoints {
    * Categories
    */
   Categories = "https://assign-api.piton.com.tr/api/rest/categories",
-  CategoryDetailById = "https://assign-api.piton.com.tr/api/rest/products/", // :id
+
+  /**
+   * Products
+   */
+  ProductsByCategoryId = "https://assign-api.piton.com.tr/api/rest/products/", // :id
+  ProductCoverImage = "https://assign-api.piton.com.tr/api/rest/cover_image",
 }

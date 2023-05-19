@@ -1,5 +1,5 @@
 import { Endpoints } from "@/enums/api/Endpoints.enum";
-import Http from "@/utility/Http";
+import Http from "@/utils/Http";
 import { IAuth } from "@/interfaces/Auth/IAuth.interface";
 
 export const AuthService = {
