@@ -2,15 +2,21 @@ import CategoryCard from "@/components/Category/CategoryCard.component";
 import Header from "@/components/Header/Header.component";
 import { IProduct } from "@/interfaces/Product/IProduct.interface";
 import { ProductService } from "@/services/Product/Product.service";
+import { setPrevProduct } from "@/store/PrevPageSlice";
 import { RootState } from "@/store/Store";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ViewAllPage({ product }: IProduct.IProductResponse) {
   const router = useRouter();
-  const { data }: any = useSelector((state: RootState) => state.prevPage.data);
-  console.log();
+  const { data } = useSelector((state: RootState) => state.prevPage);
+  const dispatch = useDispatch();
+
+  function handleCardClick(item: IProduct.IProductDetail): void {
+    dispatch(setPrevProduct(item));
+    router.push("/detail");
+  }
 
   return (
     <>
@@ -23,21 +29,11 @@ export default function ViewAllPage({ product }: IProduct.IProductResponse) {
             className="  text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
             onClick={() => router.back()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              className="w-6 h-6 mr-2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-              />
-            </svg>
-
+            <img
+              src="/LeftArrow.svg"
+              alt="Left Arrow"
+              className="w-7 h-7 mr-2"
+            />
             <span>{data ?? "Back"}</span>
           </button>
         </div>
@@ -45,7 +41,10 @@ export default function ViewAllPage({ product }: IProduct.IProductResponse) {
         <div className="flex flex-wrap gap-10 m-10">
           {product &&
             product.map((item, index) => (
-              <div className="flex" key={index}>
+              <div
+                className="flex cursor-pointer"
+                onClick={() => handleCardClick(item)}
+              >
                 <CategoryCard
                   author={item.author}
                   cover={item.cover}

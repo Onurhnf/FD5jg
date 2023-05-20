@@ -1,10 +1,19 @@
+import { logout } from "@/store/UserSlice";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 function Header() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   return (
     <>
-      <header className="flex items-center justify-between p-4 bg-white">
-        <div className="flex items-center">
+      <header className="flex items-center justify-between p-10 drop-shadow-sm mx-[30px] bg-white">
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           <Image
             src="/logo.svg"
             alt="Image"
@@ -22,17 +31,17 @@ function Header() {
           />
         </div>
 
-        <button className="px-4 py-2 text-white bg-red-500 rounded-md">
+        <button
+          className="px-4 py-2 text-white bg-red-500 rounded-md"
+          onClick={() => {
+            localStorage.removeItem("pitonToken");
+            router.push("/auth");
+            dispatch(logout());
+          }}
+        >
           Logout
         </button>
       </header>
-
-      <div className="h-64 bg-cover bg-center bg-gradient-to-r from-blue-500 to-purple-500">
-        <div className="flex flex-col items-center justify-center h-full text-white">
-          <h2 className="text-4xl font-bold mb-4">Welcome to our Website</h2>
-          <p className="text-xl">Discover amazing categories and more!</p>
-        </div>
-      </div>
     </>
   );
 }

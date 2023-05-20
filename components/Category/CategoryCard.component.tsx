@@ -20,6 +20,7 @@ export default function CategoryCard({
     try {
       const result = await ProductService.ProductCoverImage(filename);
       setImage(result.data.action_product_image.url);
+      
     } catch (error) {
       console.log(error);
     }

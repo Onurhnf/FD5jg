@@ -1,16 +1,17 @@
 import { IAuth } from "@/interfaces/Auth/IAuth.interface";
 import { AuthService } from "@/services/Auth/Auth.service";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import validator from "validator";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/UserSlice";
+import LeftSide from "@/components/Auth/LeftSide.component";
+import { RootState } from "@/store/Store";
 
 export default function AuthPage() {
   const dispatch = useDispatch();
   const router = useRouter();
-
   const [isLogin, setIsLogin] = useState(true);
   const [remember, setRemember] = useState(false);
   const [errors, setErrors] = useState<Partial<IAuth.IFormData>>({});
@@ -20,18 +21,23 @@ export default function AuthPage() {
     password: "",
   });
 
-  // useEffect(() => {
-  //   let isAuthenticated = false;
-  //   // Check if user is authenticated
-  //   if (localStorage.getItem("pitonToken")) {
-  //     isAuthenticated = true;
-  //   }
+  useEffect(() => {
+    let isAuthenticated = false;
+    // Check if user is authenticated
+    if (localStorage.getItem("pitonToken")) {
+      isAuthenticated = true;
+    }
 
-  //   // Redirect to / page if authenticated
-  //   if (isAuthenticated) {
-  //     router.replace("/");
-  //   }
-  // }, []);
+    // Redirect to / page if authenticated
+    if (isAuthenticated) {
+      router.replace("/");
+      dispatch(
+        login({
+          isLoggedIn: true,
+        })
+      );
+    }
+  }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -74,9 +80,13 @@ export default function AuthPage() {
 
     try {
       if (!isLogin) {
-        const result = await AuthService.Register(formData);
+        await AuthService.Register(formData);
+        dispatch(
+          login({
+            isLoggedIn: true,
+          })
+        );
         router.push("/");
-        console.log(result);
       } else {
         const result = await AuthService.Login(formData);
         if (result.data.action_login.message === "") {
@@ -100,19 +110,7 @@ export default function AuthPage() {
   return (
     <div className="flex flex-col md:flex-row ">
       {/* Left Side (Image, visible on medium screens and above) */}
-      <div className="hidden md:block h-screen md:w-1/2">
-        <div className="relative h-full">
-          <Image
-            src="/login-image.svg"
-            alt="Image"
-            fill
-            priority
-            style={{ objectFit: "cover" }}
-            className="object-contain"
-          />
-        </div>
-      </div>
-
+      <LeftSide />
       {/* Right Side (Login/Register Form) */}
       <div className="w-full md:w-1/2 bg-white ">
         <div className="flex flex-col items-center justify-center h-screen ">
