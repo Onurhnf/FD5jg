@@ -1,13 +1,14 @@
+import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Category from "@/components/Category/Category.component";
 import Header from "@/components/Header/Header.component";
 import { ICategory } from "@/interfaces/Category/ICategory.interface";
 import { CategoryService } from "@/services/Category/Category.service";
 import { removePrev } from "@/store/PrevPageSlice";
 import { RootState } from "@/store/Store";
-import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Home({ category }: ICategory.ICategoryResponse) {
   const dispatch = useDispatch();
@@ -16,24 +17,24 @@ export default function Home({ category }: ICategory.ICategoryResponse) {
 
   useEffect(() => {
     dispatch(removePrev());
-    if (!isLoggedIn) {
+    if (!isLoggedIn && !localStorage.getItem("pitonToken")) {
       router.push("/auth");
     }
-    console.log("saaaaaa", isLoggedIn);
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       {/* Header */}
       <Header />
-      {/* Courosel */}
 
+      {/* Courosel */}
       <div className="h-64 bg-cover bg-center bg-gradient-to-r from-blue-500 to-purple-500">
         <div className="flex flex-col items-center justify-center h-full text-white">
-          <h2 className="text-4xl font-bold mb-4">Welcome to our Website</h2>
-          <p className="text-xl">Discover amazing categories and more!</p>
+          <h2 className="text-4xl font-bold mb-4">Welcome</h2>
+          <p className="text-xl">Discover amazing books and more!</p>
         </div>
       </div>
+
       {/* Categories */}
       {category.map((item) => {
         return <Category key={item.id} {...item} />;

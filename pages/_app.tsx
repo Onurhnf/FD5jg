@@ -1,9 +1,10 @@
-import store from "@/store/Store";
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
+import store from "@/store/Store";
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

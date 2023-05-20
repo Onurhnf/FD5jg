@@ -1,7 +1,9 @@
-import { logout } from "@/store/UserSlice";
+import { memo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
+
+import { logout } from "@/store/UserSlice";
 
 function Header() {
   const router = useRouter();
@@ -32,7 +34,8 @@ function Header() {
         </div>
 
         <button
-          className="px-4 py-2 text-white bg-red-500 rounded-md"
+          data-cy="logout-button"
+          className="px-4 py-2 text-white bg-MainOrange rounded-md"
           onClick={() => {
             localStorage.removeItem("pitonToken");
             router.push("/auth");
@@ -46,4 +49,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

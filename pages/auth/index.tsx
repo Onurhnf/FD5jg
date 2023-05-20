@@ -1,13 +1,13 @@
-import { IAuth } from "@/interfaces/Auth/IAuth.interface";
-import { AuthService } from "@/services/Auth/Auth.service";
-import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-import validator from "validator";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
+
+import validator from "validator";
+import { IAuth } from "@/interfaces/Auth/IAuth.interface";
+import { AuthService } from "@/services/Auth/Auth.service";
 import { login } from "@/store/UserSlice";
 import LeftSide from "@/components/Auth/LeftSide.component";
-import { RootState } from "@/store/Store";
 
 export default function AuthPage() {
   const dispatch = useDispatch();
@@ -145,7 +145,7 @@ export default function AuthPage() {
                   }`}
                   id="name"
                   type="name"
-                  placeholder="john@mail.com"
+                  placeholder="Onur"
                   value={formData.name}
                   name="name"
                   onChange={handleInputChange}
@@ -160,6 +160,7 @@ export default function AuthPage() {
             </label>
             <div className="w-50 md:w-[400px] h-[60px]  bg-gray-400 rounded-md">
               <input
+                data-cy="login-email-input"
                 className={`bg-gray-100 appearance-none border-2 rounded w-full py-4 px-4 text-20 ${
                   errors.email
                     ? `border-red-500 focus:outline-none focus:bg-white focus:border-red-500`
@@ -183,6 +184,7 @@ export default function AuthPage() {
             <div className="w-50 md:w-[400px] h-[60px]  bg-gray-400 rounded-md">
               <input
                 type="password"
+                data-cy="login-password-input"
                 className={`bg-gray-100 appearance-none border-2 rounded w-full py-4 px-4 text-20 ${
                   errors.password
                     ? `border-red-500 focus:outline-none focus:bg-white focus:border-red-500`
@@ -217,6 +219,7 @@ export default function AuthPage() {
             <div className="mt-4">
               <button
                 onClick={handleSubmit}
+                data-cy="login-button"
                 className={`bg-MainOrange  hover:bg-opacity-90 text-white text-[24px] font-semibold  w-[300px] md:w-[400px] h-[60px] rounded-md`}
               >
                 {isLogin ? "Login" : "Register"}

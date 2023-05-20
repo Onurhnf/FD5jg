@@ -22,8 +22,6 @@ export const AuthService = {
   Login: async (
     formData: IAuth.IFormData
   ): Promise<{ data: IAuth.IAuthLoginResponse }> => {
-    console.log(formData);
-
     const result = await Http.POST(Endpoints.Login, {
       email: formData.email,
       password: formData.password,

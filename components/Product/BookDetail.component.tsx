@@ -1,11 +1,12 @@
-import { ProductService } from "@/services/Product/Product.service";
-import { RootState } from "@/store/Store";
+import { memo, useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function BookDetail() {
+import { ProductService } from "@/services/Product/Product.service";
+import { RootState } from "@/store/Store";
+
+function BookDetail() {
   const product = useSelector((state: RootState) => state.prevPage.product);
   const router = useRouter();
   const [image, setImage] = useState<string>("/logo.svg");
@@ -32,6 +33,7 @@ export default function BookDetail() {
           {/* Back Button*/}
           <div className="flex flex-row my-2 ">
             <button
+              data-cy="book-detail-back-button"
               className="text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
               onClick={() => router.back()}
             >
@@ -106,3 +108,5 @@ export default function BookDetail() {
     </>
   );
 }
+
+export default memo(BookDetail);

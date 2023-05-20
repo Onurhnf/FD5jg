@@ -1,13 +1,14 @@
-import { ICategory } from "@/interfaces/Category/ICategory.interface";
-import { ProductService } from "@/services/Product/Product.service";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
+
+import { ProductService } from "@/services/Product/Product.service";
+import { ICategory } from "@/interfaces/Category/ICategory.interface";
 
 interface CategoryCardProps extends ICategory.ICategoryCard {
   viewAll?: boolean;
 }
 
-export default function CategoryCard({
+function CategoryCard({
   cover,
   author,
   name,
@@ -20,7 +21,6 @@ export default function CategoryCard({
     try {
       const result = await ProductService.ProductCoverImage(filename);
       setImage(result.data.action_product_image.url);
-      
     } catch (error) {
       console.log(error);
     }
@@ -79,3 +79,5 @@ export default function CategoryCard({
     </div>
   );
 }
+
+export default memo(CategoryCard);

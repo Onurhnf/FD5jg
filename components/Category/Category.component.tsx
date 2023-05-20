@@ -1,26 +1,23 @@
+import { useRouter } from "next/router";
+import { memo, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import Link from "next/link";
+
+import CategoryCard from "./CategoryCard.component";
 import { ICategory } from "@/interfaces/Category/ICategory.interface";
 import { ProductService } from "@/services/Product/Product.service";
-import { useEffect, useState } from "react";
 import { IProduct } from "@/interfaces/Product/IProduct.interface";
-import CategoryCard from "./CategoryCard.component";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
 import { setPrevName, setPrevProduct } from "@/store/PrevPageSlice";
-import { useRouter } from "next/router";
 
-export default function Category({
-  created_at,
-  id,
-  name,
-}: ICategory.ICategoryDetail) {
+function Category({ created_at, id, name }: ICategory.ICategoryDetail) {
   const [product, setProduct] = useState<IProduct.IProductDetail[]>();
   const dispatch = useDispatch();
   const router = useRouter();
+
   async function productDetail(id: string) {
     try {
       const result = await ProductService.GetProducts(id);
       setProduct(result.data.product);
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -38,9 +35,12 @@ export default function Category({
   return (
     <section className=" mx-20 py-8 drop-shadow-xl">
       <div className="flex flex-row justify-between">
-        <h3 className="text-2xl font-bold mb-4">{name}</h3>
+        <h3 data-cy="Category-name" className="text-2xl font-bold mb-4">
+          {name}
+        </h3>
         <Link href={id.toString()}>
           <button
+            data-cy="View-all-button"
             onClick={() => {
               dispatch(setPrevName(name));
             }}
@@ -58,6 +58,7 @@ export default function Category({
           product.slice(0, 4).map((item, index) => (
             <div
               key={index}
+              data-cy="category-card"
               className="flex-shrink-0 cursor-pointer"
               onClick={() => handleCardClick(item)}
             >
@@ -73,3 +74,5 @@ export default function Category({
     </section>
   );
 }
+
+export default memo(Category);
