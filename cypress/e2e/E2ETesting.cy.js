@@ -30,14 +30,16 @@ describe("E2E testing", () => {
 
     cy.get('[data-cy="View-all-button"]').first().click().wait(500);
 
+    cy.get('[data-cy="view-all-category-card"]').first().click(500);
+
+    cy.contains("Summary");
+
+    cy.get('[data-cy="book-detail-back-button"]').click().wait(500);
+
     cy.get('[data-cy="category-back-button"]')
       .should("contain", "Best Seller")
       .click()
       .wait(500);
-
-    cy.get('[data-cy="view-all-category-card"]').first().click(500);
-
-    cy.contains("Summary");
 
     cy.get('[data-cy="logout-button"]').click().wait(500);
 
