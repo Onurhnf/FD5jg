@@ -1,6 +1,8 @@
+- I just tried tailwind in this project
+
 ## **Demo**
 
-- https://piton-onur-eren-hanife.vercel.app//
+- https://catalog-tailwind-nextjs.vercel.app/
 
 ## Installation and Usage
 
@@ -17,5 +19,3 @@ To use this project, you need to do the following steps:
 - For e2e testing type **npm run cypress** or **yarn cypress** and in another terminal you should run the porject in developer mode
 
 - For jest testing type **npm run test** or **yarn test**
-
-# PITON Technology Case
